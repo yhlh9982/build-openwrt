@@ -164,7 +164,7 @@ ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 echo "OPENWRT_PATH=$PWD" >>$GITHUB_ENV
 
 # 设置luci版本为18.06
-sed -i '/luci/s/^#//; /openwrt-23.05/s/^/#/' feeds.conf.default
+#sed -i '/luci/s/^#//; /openwrt-23.05/s/^/#/' feeds.conf.default
 
 # 开始生成全局变量
 begin_time=$(date '+%H:%M:%S')
@@ -238,35 +238,39 @@ destination_dir="package/A"
 color cy "添加&替换插件"
 
 # 添加额外插件
-git_clone https://github.com/kongfl888/luci-app-adguardhome
-clone_all https://github.com/sirpdboy/luci-app-ddns-go
-
-clone_all lua https://github.com/sbwml/luci-app-alist
-clone_all v5-lua https://github.com/sbwml/luci-app-mosdns
-git_clone https://github.com/sbwml/packages_lang_golang golang
-
-git_clone lede https://github.com/pymumu/luci-app-smartdns
+#dns转发
+clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome   #adguardhome
+git_clone master https://github.com/pymumu/luci-app-smartdns  #smartdns
 git_clone https://github.com/pymumu/openwrt-smartdns smartdns
-
+clone_all https://github.com/sbwml/luci-app-mosdns            #mosdns
+git_clone https://github.com/sbwml/packages_lang_golang golang
+#插件添加
+clone_all https://github.com/sirpdboy/luci-app-ddns-go  #ddns-go
+clone_all https://github.com/sbwml/luci-app-alist   #alist
 git_clone https://github.com/ximiTech/luci-app-msd_lite
 git_clone https://github.com/ximiTech/msd_lite
-
+git_clone https://github.com/lwb1978/openwrt-gecoosac   #集客ac
+git_clone https://github.com/destan19/OpenAppFilter     #应用过滤
+clone_all https://github.com/brvphoenix/luci-app-wrtbwmon   
+clone_all https://github.com/brvphoenix/wrtbwmon
+git_clone https://github.com/asvow/luci-app-tailscale  #tailscale
+#istoreos主题
 clone_all https://github.com/linkease/istore-ui
 clone_all https://github.com/linkease/istore luci
 
 # 科学上网插件
 clone_all https://github.com/fw876/helloworld
+clone_all https://github.com/VIKINGYFY/homeproxy
 clone_all https://github.com/xiaorouji/openwrt-passwall-packages
 clone_all https://github.com/xiaorouji/openwrt-passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall2
 clone_dir https://github.com/vernesong/OpenClash luci-app-openclash
+clone_all https://github.com/Thaolga/luci-app-nekoclash
+clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
 
 # Themes
-git_clone 18.06 https://github.com/kiddin9/luci-theme-edge
-git_clone 18.06 https://github.com/jerrykuku/luci-theme-argon
-git_clone 18.06 https://github.com/jerrykuku/luci-app-argon-config
-clone_dir https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom luci-theme-infinityfreedom-ng
-clone_dir https://github.com/haiibo/packages luci-theme-opentomcat
+git_clone https://github.com/jerrykuku/luci-theme-argon
+git_clone https://github.com/jerrykuku/luci-app-argon-config
 
 # 晶晨宝盒
 clone_all https://github.com/ophub/luci-app-amlogic
