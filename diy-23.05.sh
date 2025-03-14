@@ -150,7 +150,7 @@ clone_all() {
 # 设置编译源码与分支
 REPO_URL="https://github.com/immortalwrt/immortalwrt"
 echo "REPO_URL=$REPO_URL" >>$GITHUB_ENV
-REPO_BRANCH="openwrt-23.05"
+REPO_BRANCH="openwrt-24.10"
 echo "REPO_BRANCH=$REPO_BRANCH" >>$GITHUB_ENV
 
 # 开始拉取编译源码
@@ -235,29 +235,37 @@ destination_dir="package/A"
 color cy "添加&替换插件"
 
 # 添加额外插件
-clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome
-git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
-clone_all https://github.com/morytyann/OpenWrt-mihomo
-
-clone_all https://github.com/sbwml/luci-app-alist
-clone_all https://github.com/sbwml/luci-app-mosdns
+#dns转发
+clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome   #adguardhome
+git_clone master https://github.com/pymumu/luci-app-smartdns  #smartdns
+git_clone https://github.com/pymumu/openwrt-smartdns smartdns
+clone_all https://github.com/sbwml/luci-app-mosdns            #mosdns
 git_clone https://github.com/sbwml/packages_lang_golang golang
-
+#插件添加
+clone_all https://github.com/sirpdboy/luci-app-ddns-go  #ddns-go
+clone_all https://github.com/sbwml/luci-app-alist   #alist
+git_clone https://github.com/ximiTech/luci-app-msd_lite
+git_clone https://github.com/ximiTech/msd_lite
+git_clone https://github.com/lwb1978/openwrt-gecoosac   #集客ac
+git_clone https://github.com/destan19/OpenAppFilter     #应用过滤
+clone_all https://github.com/brvphoenix/luci-app-wrtbwmon   
+clone_all https://github.com/brvphoenix/wrtbwmon
+git_clone https://github.com/asvow/luci-app-tailscale  #tailscale
+#istoreos主题
 clone_all https://github.com/linkease/istore-ui
 clone_all https://github.com/linkease/istore luci
 
-clone_all https://github.com/brvphoenix/luci-app-wrtbwmon
-clone_all https://github.com/brvphoenix/wrtbwmon
-
 # 科学上网插件
 clone_all https://github.com/fw876/helloworld
+clone_all https://github.com/VIKINGYFY/homeproxy
 clone_all https://github.com/xiaorouji/openwrt-passwall-packages
 clone_all https://github.com/xiaorouji/openwrt-passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall2
 clone_dir https://github.com/vernesong/OpenClash luci-app-openclash
+clone_all https://github.com/Thaolga/luci-app-nekoclash
+clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
 
 # Themes
-git_clone https://github.com/kiddin9/luci-theme-edge
 git_clone https://github.com/jerrykuku/luci-theme-argon
 git_clone https://github.com/jerrykuku/luci-app-argon-config
 
@@ -291,7 +299,7 @@ sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.
 sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.::0:99999:7:::/g' package/base-files/files/etc/shadow
 
 # 更改 Argon 主题背景
-cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+#cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # 取消主题默认设置
 # find $destination_dir/luci-theme-*/ -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
