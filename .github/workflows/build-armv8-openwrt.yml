@@ -9,14 +9,14 @@ on:
       source:
         description: '选择要编译的LUCI版本'
         required: true
-        default: '18.06'
+        default: '23.05'
         type: choice
         options: [18.06, 23.05]
 
       ip:
         description: '设置默认登录IP'
         required: false
-        default: '192.168.1.2'
+        default: '192.168.30.2'
 
 #      free_disk:
 #        description: '清理释放磁盘空间'
