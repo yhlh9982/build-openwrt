@@ -23,12 +23,12 @@ on:
       ip:
         description: '设置默认登录IP'
         required: false
-        default: '192.168.1.2'
+        default: '192.168.30.2'
 
       partsize:
         description: '设置rootfs大小'
         required: false
-        default: '800'
+        default: '2048'
 
 #      free_disk:
 #        description: '清理释放磁盘空间'
