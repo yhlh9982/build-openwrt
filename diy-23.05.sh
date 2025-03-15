@@ -237,7 +237,7 @@ color cy "添加&替换插件"
 # 添加额外插件
 #dns转发
 clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome   #adguardhome
-git_clone master https://github.com/pymumu/luci-app-smartdns  #smartdns
+#git_clone master https://github.com/pymumu/luci-app-smartdns  #smartdns
 git_clone https://github.com/pymumu/openwrt-smartdns smartdns
 #插件添加
 clone_all https://github.com/sirpdboy/luci-app-ddns-go  #ddns-go
