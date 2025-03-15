@@ -240,6 +240,7 @@ clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhom
 #git_clone master https://github.com/pymumu/luci-app-smartdns  #smartdns
 git_clone https://github.com/pymumu/openwrt-smartdns smartdns
 #插件添加
+git_clone https://github.com/sbwml/packages_lang_golang golang
 clone_all https://github.com/sirpdboy/luci-app-ddns-go  #ddns-go
 clone_all https://github.com/sbwml/luci-app-alist   #alist
 git_clone https://github.com/ximiTech/luci-app-msd_lite
