@@ -248,7 +248,7 @@ git_clone https://github.com/lwb1978/openwrt-gecoosac   #集客ac
 git_clone https://github.com/destan19/OpenAppFilter     #应用过滤
 clone_all https://github.com/brvphoenix/luci-app-wrtbwmon   
 clone_all https://github.com/brvphoenix/wrtbwmon
-git_clone https://github.com/asvow/luci-app-tailscale  #tailscale
+#git_clone https://github.com/asvow/luci-app-tailscale  #tailscale
 #istoreos主题
 clone_all https://github.com/linkease/istore-ui
 clone_all https://github.com/linkease/istore luci
