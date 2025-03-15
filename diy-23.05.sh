@@ -305,6 +305,9 @@ sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.
 # 调整 netdata 到 状态 菜单
 sed -i 's/system/status/g' feeds/luci/applications/luci-app-netdata/luasrc/controller/netdata.lua
 
+# 调整 tailscale 到 VPN 菜单
+sed -i "s/\"admin\", \"services\", \"tailscale\"/\"admin\", \"vpn\", \"tailscale\"/g" feeds/luci/applications/luci-app-tailscale/luasrc/controller/tailscale.lua
+
 # 更改 ttyd 顺序和名称
 sed -i '3a \		"order": 10,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 sed -i 's/\"终端\"/\"TTYD 终端\"/g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
