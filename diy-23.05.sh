@@ -243,6 +243,7 @@ clone_all v5-lua https://github.com/sbwml/luci-app-mosdns
 git_clone https://github.com/sbwml/packages_lang_golang golang
 #插件添加
 clone_all https://github.com/sirpdboy/luci-app-ddns-go  #ddns-go
+git_clone https://github.com/gdy666/luci-app-lucky  #lucky大吉
 clone_all https://github.com/sbwml/luci-app-alist   #alist
 git_clone https://github.com/ximiTech/luci-app-msd_lite
 git_clone https://github.com/ximiTech/msd_lite
@@ -251,6 +252,7 @@ git_clone https://github.com/destan19/OpenAppFilter     #应用过滤
 clone_all https://github.com/brvphoenix/luci-app-wrtbwmon   
 clone_all https://github.com/brvphoenix/wrtbwmon
 git_clone https://github.com/asvow/luci-app-tailscale  #tailscale
+git_clone https://github.com/sirpdboy/luci-app-poweroffdevice   #设备关机功能
 #istoreos主题
 clone_all https://github.com/linkease/istore-ui
 clone_all https://github.com/linkease/istore luci
