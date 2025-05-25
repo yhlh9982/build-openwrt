@@ -266,6 +266,9 @@ mv $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}/* $WORKINGDIR/
 rmdir $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}
 rm $WORKINGDIR/${LUCIBRANCH}.zip
 
+clone_all https://github.com/destan19/OpenAppFilter 
+clone_all https://github.com/sirpdboy/luci-app-poweroffdevice 
+clone_all https://github.com/feifan1113/luci-app-fileassistant 
 clone_all lua https://github.com/sirpdboy/luci-app-ddns-go
 clone_all lua https://github.com/sbwml/luci-app-alist
 git_clone https://github.com/ximiTech/luci-app-msd_lite
