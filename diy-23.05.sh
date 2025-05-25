@@ -240,28 +240,49 @@ destination_dir="package/A"
 color cy "添加&替换插件"
 
 # 添加额外插件
-clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome
-git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
-clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
-clone_all https://github.com/QiuSimons/luci-app-daed PIC
-
+#clone_all https://github.com/linkease/istore-ui
+#clone_all https://github.com/linkease/istore luci
 clone_all https://github.com/sbwml/luci-app-alist
-clone_all https://github.com/sbwml/luci-app-mosdns
-git_clone https://github.com/sbwml/packages_lang_golang golang
-
-clone_all https://github.com/linkease/istore-ui
-clone_all https://github.com/linkease/istore luci
-
 clone_all https://github.com/brvphoenix/luci-app-wrtbwmon
 clone_all https://github.com/brvphoenix/wrtbwmon
 
+#adguardhome
+clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome
+
+#mosdns
+clone_all https://github.com/sbwml/luci-app-mosdns
+git_clone https://github.com/sbwml/packages_lang_golang golang
+
+#smartdns
+WORKINGDIR="`pwd`/feeds/packages/net/smartdns"
+mkdir $WORKINGDIR -p
+rm $WORKINGDIR/* -fr
+wget https://github.com/pymumu/openwrt-smartdns/archive/master.zip -O $WORKINGDIR/master.zip
+unzip $WORKINGDIR/master.zip -d $WORKINGDIR
+mv $WORKINGDIR/openwrt-smartdns-master/* $WORKINGDIR/
+rmdir $WORKINGDIR/openwrt-smartdns-master
+rm $WORKINGDIR/master.zip
+
+LUCIBRANCH="master" #更换此变量
+WORKINGDIR="`pwd`/feeds/luci/applications/luci-app-smartdns"
+mkdir $WORKINGDIR -p
+rm $WORKINGDIR/* -fr
+wget https://github.com/pymumu/luci-app-smartdns/archive/${LUCIBRANCH}.zip -O $WORKINGDIR/${LUCIBRANCH}.zip
+unzip $WORKINGDIR/${LUCIBRANCH}.zip -d $WORKINGDIR
+mv $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}/* $WORKINGDIR/
+rmdir $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}
+rm $WORKINGDIR/${LUCIBRANCH}.zip
+
 # 科学上网插件
+clone_dir https://github.com/sbwml/openwrt_helloworld shadowsocks-rust
+git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
 clone_all https://github.com/fw876/helloworld shadowsocks-rust
+clone_all https://github.com/QiuSimons/luci-app-daed PIC
 clone_all https://github.com/xiaorouji/openwrt-passwall-packages shadowsocks-rust
 clone_all https://github.com/xiaorouji/openwrt-passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall2
 clone_dir https://github.com/vernesong/OpenClash luci-app-openclash
-clone_dir https://github.com/sbwml/openwrt_helloworld shadowsocks-rust
+clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
 
 # Themes
 git_clone https://github.com/kiddin9/luci-theme-edge
