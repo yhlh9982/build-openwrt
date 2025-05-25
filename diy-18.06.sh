@@ -244,20 +244,34 @@ color cy "添加&替换插件"
 
 # 添加额外插件
 git_clone https://github.com/kongfl888/luci-app-adguardhome
-clone_all lua https://github.com/sirpdboy/luci-app-ddns-go
-
-clone_all lua https://github.com/sbwml/luci-app-alist
 clone_all v5-lua https://github.com/sbwml/luci-app-mosdns
 git_clone https://github.com/sbwml/packages_lang_golang golang
 
-git_clone lede https://github.com/pymumu/luci-app-smartdns
-git_clone https://github.com/pymumu/openwrt-smartdns smartdns
+WORKINGDIR="`pwd`/feeds/packages/net/smartdns"
+mkdir $WORKINGDIR -p
+rm $WORKINGDIR/* -fr
+wget https://github.com/pymumu/openwrt-smartdns/archive/master.zip -O $WORKINGDIR/master.zip
+unzip $WORKINGDIR/master.zip -d $WORKINGDIR
+mv $WORKINGDIR/openwrt-smartdns-master/* $WORKINGDIR/
+rmdir $WORKINGDIR/openwrt-smartdns-master
+rm $WORKINGDIR/master.zip
 
+LUCIBRANCH="lede" #更换此变量
+WORKINGDIR="`pwd`/feeds/luci/applications/luci-app-smartdns"
+mkdir $WORKINGDIR -p
+rm $WORKINGDIR/* -fr
+wget https://github.com/pymumu/luci-app-smartdns/archive/${LUCIBRANCH}.zip -O $WORKINGDIR/${LUCIBRANCH}.zip
+unzip $WORKINGDIR/${LUCIBRANCH}.zip -d $WORKINGDIR
+mv $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}/* $WORKINGDIR/
+rmdir $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}
+rm $WORKINGDIR/${LUCIBRANCH}.zip
+
+clone_all lua https://github.com/sirpdboy/luci-app-ddns-go
+clone_all lua https://github.com/sbwml/luci-app-alist
 git_clone https://github.com/ximiTech/luci-app-msd_lite
 git_clone https://github.com/ximiTech/msd_lite
-
-clone_all https://github.com/linkease/istore-ui
-clone_all https://github.com/linkease/istore luci
+#clone_all https://github.com/linkease/istore-ui
+#clone_all https://github.com/linkease/istore luci
 
 # 科学上网插件
 clone_all https://github.com/fw876/helloworld
