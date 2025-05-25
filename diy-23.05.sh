@@ -240,6 +240,9 @@ destination_dir="package/A"
 color cy "添加&替换插件"
 
 # 添加额外插件
+clone_all https://github.com/destan19/OpenAppFilter 
+clone_all https://github.com/sirpdboy/luci-app-poweroffdevice 
+clone_all https://github.com/feifan1113/luci-app-fileassistant 
 #clone_all https://github.com/linkease/istore-ui
 #clone_all https://github.com/linkease/istore luci
 clone_all https://github.com/sbwml/luci-app-alist
