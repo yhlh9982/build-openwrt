@@ -28,7 +28,7 @@ on:
       partsize:
         description: '设置rootfs大小'
         required: false
-        default: '800'
+        default: '2048'
 
 #      free_disk:
 #        description: '清理释放磁盘空间'
