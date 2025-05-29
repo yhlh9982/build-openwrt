@@ -156,6 +156,7 @@ clone_all() {
 REPO_URL="https://github.com/immortalwrt/immortalwrt"
 echo "REPO_URL=$REPO_URL" >>$GITHUB_ENV
 REPO_BRANCH="openwrt-23.05"
+#REPO_BRANCH="openwrt-24.10"
 echo "REPO_BRANCH=$REPO_BRANCH" >>$GITHUB_ENV
 
 # 开始拉取编译源码
@@ -240,33 +241,64 @@ destination_dir="package/A"
 color cy "添加&替换插件"
 
 # 添加额外插件
-clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome
-git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
-clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
-clone_all https://github.com/QiuSimons/luci-app-daed PIC
-
-clone_all https://github.com/sbwml/luci-app-alist
-clone_all https://github.com/sbwml/luci-app-mosdns
-git_clone https://github.com/sbwml/packages_lang_golang golang
-
-clone_all https://github.com/linkease/istore-ui
-clone_all https://github.com/linkease/istore luci
-
+git_clone https://github.com/lwb1978/openwrt-gecoosac  #集客 AC OpenWRT 插件 2.2 版
+git_clone https://github.com/destan19/OpenAppFilter  #应用过滤(OAF)
+#rm -rf feeds/luci/applications/luci-app-netdata  
+#git_clone https://github.com/sirpdboy/luci-app-netdata  #实时监控
+git_clone https://github.com/sirpdboy/luci-app-partexp  #一键自动格式化分区、扩容、自动挂载插件
+git_clone https://github.com/sirpdboy/luci-app-wizard  #网络设置向导
+git_clone https://github.com/sirpdboy/luci-app-taskplan  #任务设置2.0版
+git_clone https://github.com/sirpdboy/luci-app-watchdog  #看门狗
+git_clone https://github.com/sirpdboy/luci-app-poweroffdevice  #关机
+git_clone https://github.com/zzsj0928/luci-app-pushbot  #微信推送
+git_clone https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk  #锐捷验证 luci-app-mentohust
+clone_dir https://github.com/shidahuilang/openwrt-package luci-app-fileassistant  #文件助手
+git_clone https://github.com/ximiTech/msd_lite
 clone_all https://github.com/brvphoenix/luci-app-wrtbwmon
 clone_all https://github.com/brvphoenix/wrtbwmon
 
+#theme
+git_clone js https://github.com/sirpdboy/luci-theme-kucat  #酷猫主题
+git_clone https://github.com/sirpdboy/luci-app-advancedplus  #酷猫主题设置 进阶设置-高级设置
+
+#adguardhome
+clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome
+
+#mosdns
+clone_all https://github.com/sbwml/luci-app-mosdns
+git_clone https://github.com/sbwml/packages_lang_golang golang
+
+#smartdns
+WORKINGDIR="`pwd`/feeds/packages/net/smartdns"
+mkdir $WORKINGDIR -p
+rm $WORKINGDIR/* -fr
+wget https://github.com/pymumu/openwrt-smartdns/archive/master.zip -O $WORKINGDIR/master.zip
+unzip $WORKINGDIR/master.zip -d $WORKINGDIR
+mv $WORKINGDIR/openwrt-smartdns-master/* $WORKINGDIR/
+rmdir $WORKINGDIR/openwrt-smartdns-master
+rm $WORKINGDIR/master.zip
+
+LUCIBRANCH="master" #更换此变量
+WORKINGDIR="`pwd`/feeds/luci/applications/luci-app-smartdns"
+mkdir $WORKINGDIR -p
+rm $WORKINGDIR/* -fr
+wget https://github.com/pymumu/luci-app-smartdns/archive/${LUCIBRANCH}.zip -O $WORKINGDIR/${LUCIBRANCH}.zip
+unzip $WORKINGDIR/${LUCIBRANCH}.zip -d $WORKINGDIR
+mv $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}/* $WORKINGDIR/
+rmdir $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}
+rm $WORKINGDIR/${LUCIBRANCH}.zip
+
 # 科学上网插件
+clone_dir https://github.com/sbwml/openwrt_helloworld shadowsocks-rust
 clone_all https://github.com/fw876/helloworld shadowsocks-rust
+git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
+clone_all https://github.com/QiuSimons/luci-app-daed PIC
 clone_all https://github.com/xiaorouji/openwrt-passwall-packages shadowsocks-rust
 clone_all https://github.com/xiaorouji/openwrt-passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall2
 clone_dir https://github.com/vernesong/OpenClash luci-app-openclash
-clone_dir https://github.com/sbwml/openwrt_helloworld shadowsocks-rust
-
-# Themes
-git_clone https://github.com/kiddin9/luci-theme-edge
-git_clone https://github.com/jerrykuku/luci-theme-argon
-git_clone https://github.com/jerrykuku/luci-app-argon-config
+clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
+clone_all https://github.com/Thaolga/luci-app-nekoclash
 
 # 晶晨宝盒
 clone_all https://github.com/ophub/luci-app-amlogic
@@ -295,10 +327,10 @@ fi
 sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
 
 # 设置 root 用户密码为 password
-sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.::0:99999:7:::/g' package/base-files/files/etc/shadow
+#sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.::0:99999:7:::/g' package/base-files/files/etc/shadow
 
 # 更改 Argon 主题背景
-cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+#cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # 取消主题默认设置
 # find $destination_dir/luci-theme-*/ -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
