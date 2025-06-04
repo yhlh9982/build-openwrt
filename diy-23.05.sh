@@ -243,8 +243,6 @@ color cy "添加&替换插件"
 # 添加额外插件
 git_clone https://github.com/lwb1978/openwrt-gecoosac  #集客 AC OpenWRT 插件 2.2 版
 git_clone https://github.com/destan19/OpenAppFilter  #应用过滤(OAF)
-#rm -rf feeds/luci/applications/luci-app-netdata  
-#git_clone https://github.com/sirpdboy/luci-app-netdata  #实时监控
 git_clone https://github.com/sirpdboy/luci-app-partexp  #一键自动格式化分区、扩容、自动挂载插件
 git_clone https://github.com/sirpdboy/luci-app-wizard  #网络设置向导
 git_clone https://github.com/sirpdboy/luci-app-taskplan  #任务设置2.0版
@@ -252,7 +250,6 @@ git_clone https://github.com/sirpdboy/luci-app-watchdog  #看门狗
 git_clone https://github.com/sirpdboy/luci-app-poweroffdevice  #关机
 git_clone https://github.com/zzsj0928/luci-app-pushbot  #微信推送
 git_clone https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk  #锐捷验证 luci-app-mentohust
-clone_dir https://github.com/shidahuilang/openwrt-package luci-app-fileassistant  #文件助手
 git_clone https://github.com/ximiTech/msd_lite
 clone_all https://github.com/brvphoenix/luci-app-wrtbwmon
 clone_all https://github.com/brvphoenix/wrtbwmon
