@@ -344,10 +344,6 @@ sed -i "s/'C'/'Core '/g; s/'T '/'Thread '/g" package/lean/autocore/files/x86/aut
 # 取消对 samba4 的菜单调整
 # sed -i '/samba4/s/^/#/' package/lean/default-settings/files/zzz-default-settings
 
-# 设置 nlbwmon 独立菜单
-sed -i 's/services\/nlbw/nlbw/g; /path/s/admin\///g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
-sed -i 's/services\///g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
-
 # 修复 Makefile 路径
 find $destination_dir/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i \
     -e 's?\.\./\.\./luci.mk?$(TOPDIR)/feeds/luci/luci.mk?' \
