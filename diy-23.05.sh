@@ -251,8 +251,6 @@ git_clone https://github.com/sirpdboy/luci-app-poweroffdevice  #关机
 git_clone https://github.com/zzsj0928/luci-app-pushbot  #微信推送
 git_clone https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk  #锐捷验证 luci-app-mentohust
 git_clone https://github.com/ximiTech/msd_lite
-clone_all https://github.com/brvphoenix/luci-app-wrtbwmon
-clone_all https://github.com/brvphoenix/wrtbwmon
 
 #theme
 git_clone js https://github.com/sirpdboy/luci-theme-kucat  #酷猫主题
@@ -289,7 +287,6 @@ rm $WORKINGDIR/${LUCIBRANCH}.zip
 clone_dir https://github.com/sbwml/openwrt_helloworld shadowsocks-rust
 clone_all https://github.com/fw876/helloworld shadowsocks-rust
 git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
-clone_all https://github.com/QiuSimons/luci-app-daed PIC
 clone_all https://github.com/xiaorouji/openwrt-passwall-packages shadowsocks-rust
 clone_all https://github.com/xiaorouji/openwrt-passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall2
@@ -338,10 +335,6 @@ sed -i 's/system/status/g' feeds/luci/applications/luci-app-netdata/luasrc/contr
 # 更改 ttyd 顺序和名称
 sed -i '3a \		"order": 10,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 sed -i 's/\"终端\"/\"TTYD 终端\"/g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
-
-# 设置 nlbwmon 独立菜单
-sed -i 's/services\/nlbw/nlbw/g; /path/s/admin\///g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
-sed -i 's/services\///g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
 
 # 修复 Makefile 路径
 find $destination_dir/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i \
