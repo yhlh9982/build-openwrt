@@ -23,12 +23,12 @@ on:
       ip:
         description: '设置默认登录IP'
         required: false
-        default: '10.0.0.2'
+        default: '192.168.30.1'
 
       partsize:
         description: '设置rootfs大小'
         required: false
-        default: '800'
+        default: '2048'
 
 #      free_disk:
 #        description: '清理释放磁盘空间'
@@ -51,7 +51,7 @@ on:
       openclash:
         description: '预设openclash内核'
         required: false
-        default: 'amd64'
+        default: 'false'
         type: choice
         options: [false, amd64, arm64, armv7, armv6, armv5, 386]
 
