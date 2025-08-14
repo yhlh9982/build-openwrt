@@ -164,7 +164,7 @@ ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 echo "OPENWRT_PATH=$PWD" >>$GITHUB_ENV
 
 # 设置luci版本为18.06
-sed -i '/luci/s/^#//; /luci.git/s/^/#/' feeds.conf.default
+# sed -i '/luci/s/^#//; /luci.git/s/^/#/' feeds.conf.default
 
 # 开始生成全局变量
 begin_time=$(date '+%H:%M:%S')
@@ -238,35 +238,60 @@ destination_dir="package/A"
 color cy "添加&替换插件"
 
 # 添加额外插件
-git_clone https://github.com/kongfl888/luci-app-adguardhome
-clone_all lua https://github.com/sirpdboy/luci-app-ddns-go
+#smartdns
+WORKINGDIR="`pwd`/feeds/packages/net/smartdns"
+mkdir $WORKINGDIR -p
+rm $WORKINGDIR/* -fr
+wget https://github.com/pymumu/openwrt-smartdns/archive/master.zip -O $WORKINGDIR/master.zip
+unzip $WORKINGDIR/master.zip -d $WORKINGDIR
+mv $WORKINGDIR/openwrt-smartdns-master/* $WORKINGDIR/
+rmdir $WORKINGDIR/openwrt-smartdns-master
+rm $WORKINGDIR/master.zip
 
-clone_all lua https://github.com/sbwml/luci-app-alist
-clone_all v5-lua https://github.com/sbwml/luci-app-mosdns
-git_clone https://github.com/sbwml/packages_lang_golang golang
+LUCIBRANCH="master" #更换此变量
+WORKINGDIR="`pwd`/feeds/luci/applications/luci-app-smartdns"
+mkdir $WORKINGDIR -p
+rm $WORKINGDIR/* -fr
+wget https://github.com/pymumu/luci-app-smartdns/archive/${LUCIBRANCH}.zip -O $WORKINGDIR/${LUCIBRANCH}.zip
+unzip $WORKINGDIR/${LUCIBRANCH}.zip -d $WORKINGDIR
+mv $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}/* $WORKINGDIR/
+rmdir $WORKINGDIR/luci-app-smartdns-${LUCIBRANCH}
+rm $WORKINGDIR/${LUCIBRANCH}.zip
 
-git_clone lede https://github.com/pymumu/luci-app-smartdns
-git_clone https://github.com/pymumu/openwrt-smartdns smartdns
-
+git_clone https://github.com/lwb1978/openwrt-gecoosac  #集客 AC OpenWRT 插件 2.2 版
+git_clone https://github.com/destan19/OpenAppFilter  #应用过滤(OAF)
+# rm -rf feeds/luci/applications/luci-app-netdata  
+# git_clone https://github.com/sirpdboy/luci-app-netdata  #实时监控
+git_clone https://github.com/sirpdboy/luci-app-partexp  #一键自动格式化分区、扩容、自动挂载插件
+git_clone https://github.com/sirpdboy/luci-app-wizard  #网络设置向导
+git_clone https://github.com/sirpdboy/luci-app-taskplan  #任务设置2.0版
+git_clone https://github.com/sirpdboy/luci-app-watchdog  #看门狗
+git_clone https://github.com/sirpdboy/luci-app-poweroffdevice  #关机
+git_clone https://github.com/zzsj0928/luci-app-pushbot  #微信推送
+git_clone https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk  #锐捷验证 luci-app-mentohust
+clone_dir https://github.com/shidahuilang/openwrt-package luci-app-fileassistant  #文件助手
 git_clone https://github.com/ximiTech/luci-app-msd_lite
 git_clone https://github.com/ximiTech/msd_lite
 
-clone_all https://github.com/linkease/istore-ui
-clone_all https://github.com/linkease/istore luci
-
 # 科学上网插件
-clone_all https://github.com/fw876/helloworld
-clone_all https://github.com/xiaorouji/openwrt-passwall-packages
+# clone_all https://github.com/fw876/helloworld
+
+# passwall-packages
+# 移除 openwrt feeds 自带的核心库
+rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
+
 clone_all https://github.com/xiaorouji/openwrt-passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall2
 clone_dir https://github.com/vernesong/OpenClash luci-app-openclash
 
-# Themes
-git_clone 18.06 https://github.com/kiddin9/luci-theme-edge
-git_clone 18.06 https://github.com/jerrykuku/luci-theme-argon
-git_clone 18.06 https://github.com/jerrykuku/luci-app-argon-config
-clone_dir https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom luci-theme-infinityfreedom-ng
-clone_dir https://github.com/haiibo/packages luci-theme-opentomcat
+# theme
+git_clone js https://github.com/sirpdboy/luci-theme-kucat  #酷猫主题
+git_clone https://github.com/sirpdboy/luci-app-advancedplus  #酷猫主题设置 进阶设置-高级设置
+
+# 更新 golang 1.25 版本
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # 晶晨宝盒
 clone_all https://github.com/ophub/luci-app-amlogic
