@@ -132,18 +132,23 @@ clone_all() {
         print_info $(color cr 拉取) $repo_url [ $(color cr ✕) ]
         return 0
     }
-    local target_dir source_dir current_dir
-    for target_dir in $(ls -l $temp_dir/$@ | awk '/^d/ {print $NF}'); do
-        source_dir=$(find_dir "$temp_dir" "$target_dir")
+    local delete_dir target_dir current_dir
+    if [[ "$@" ]]; then
+        for delete_dir in "$@"; do
+            rm -rf $temp_dir/$delete_dir
+        done
+    fi
+    while read -r -d '' target_dir; do
+        target_dir=$(basename "$target_dir")
         current_dir=$(find_dir "package/ feeds/ target/" "$target_dir")
         if ([[ -d $current_dir ]] && rm -rf $current_dir); then
-            mv -f $source_dir ${current_dir%/*}
+            mv -f $temp_dir/$target_dir ${current_dir%/*}
             print_info $(color cg 替换) $target_dir [ $(color cg ✔) ]
         else
-            mv -f $source_dir $destination_dir
+            mv -f $temp_dir/$target_dir $destination_dir
             print_info $(color cb 添加) $target_dir [ $(color cb ✔) ]
         fi
-    done
+    done < <(find "$temp_dir" -maxdepth 1 -mindepth 1 -type d -not -name '.*' -print0)
     rm -rf $temp_dir
 }
 
@@ -164,7 +169,7 @@ ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 echo "OPENWRT_PATH=$PWD" >>$GITHUB_ENV
 
 # 设置luci版本为18.06
-# sed -i '/luci/s/^#//; /luci.git/s/^/#/' feeds.conf.default
+#sed -i '/luci/s/^#//; /luci.git/s/^/#/' feeds.conf.default
 
 # 开始生成全局变量
 begin_time=$(date '+%H:%M:%S')
@@ -260,8 +265,8 @@ rm $WORKINGDIR/${LUCIBRANCH}.zip
 
 git_clone https://github.com/lwb1978/openwrt-gecoosac  #集客 AC OpenWRT 插件 2.2 版
 git_clone https://github.com/destan19/OpenAppFilter  #应用过滤(OAF)
-# rm -rf feeds/luci/applications/luci-app-netdata  
-# git_clone https://github.com/sirpdboy/luci-app-netdata  #实时监控
+#rm -rf feeds/luci/applications/luci-app-netdata  
+#git_clone https://github.com/sirpdboy/luci-app-netdata  #实时监控
 git_clone https://github.com/sirpdboy/luci-app-partexp  #一键自动格式化分区、扩容、自动挂载插件
 git_clone https://github.com/sirpdboy/luci-app-wizard  #网络设置向导
 git_clone https://github.com/sirpdboy/luci-app-taskplan  #任务设置2.0版
@@ -274,24 +279,15 @@ git_clone https://github.com/ximiTech/luci-app-msd_lite
 git_clone https://github.com/ximiTech/msd_lite
 
 # 科学上网插件
-# clone_all https://github.com/fw876/helloworld
-
-# passwall-packages
-# 移除 openwrt feeds 自带的核心库
-# rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
-# git_clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
-
+clone_all https://github.com/fw876/helloworld
+clone_all https://github.com/xiaorouji/openwrt-passwall-packages
 clone_all https://github.com/xiaorouji/openwrt-passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall2
 clone_dir https://github.com/vernesong/OpenClash luci-app-openclash
 
-# theme
+#theme
 git_clone js https://github.com/sirpdboy/luci-theme-kucat  #酷猫主题
 git_clone https://github.com/sirpdboy/luci-app-advancedplus  #酷猫主题设置 进阶设置-高级设置
-
-# 更新 golang 1.25 版本
-rm -rf feeds/packages/lang/golang
-git_clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # 晶晨宝盒
 clone_all https://github.com/ophub/luci-app-amlogic
@@ -323,31 +319,24 @@ sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.
 # sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings 
 
 # 更改 Argon 主题背景
-# cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+#cp -f $GITHUB_WORKSPACE/images/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # x86 型号只显示 CPU 型号
 sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' package/lean/autocore/files/x86/autocore
 sed -i "s/'C'/'Core '/g; s/'T '/'Thread '/g" package/lean/autocore/files/x86/autocore
 
-# 添加编译日期
-# echo "DISTRIB_DATE='R$(date +%y.%-m.%-d)'" >>package/base-files/files/etc/openwrt_release
-
 # 取消主题默认设置
 # find $destination_dir/luci-theme-*/ -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 
 # 调整 Docker 到 服务 菜单
-# sed -i 's/"admin"/"admin", "services"/g' feeds/luci/applications/luci-app-dockerman/luasrc/controller/*.lua
-# sed -i 's/"admin"/"admin", "services"/g; s/admin\//admin\/services\//g' feeds/luci/applications/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
-# sed -i 's/admin\//admin\/services\//g' feeds/luci/applications/luci-app-dockerman/luasrc/view/dockerman/*.htm
-# sed -i 's|admin\\|admin\\/services\\|g' feeds/luci/applications/luci-app-dockerman/luasrc/view/dockerman/container.htm
+#sed -i 's/"admin"/"admin", "services"/g' feeds/luci/applications/luci-app-dockerman/luasrc/controller/*.lua
+#sed -i 's/"admin"/"admin", "services"/g; s/admin\//admin\/services\//g' feeds/luci/applications/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
+#sed -i 's/admin\//admin\/services\//g' feeds/luci/applications/luci-app-dockerman/luasrc/view/dockerman/*.htm
+#sed -i 's|admin\\|admin\\/services\\|g' feeds/luci/applications/luci-app-dockerman/luasrc/view/dockerman/container.htm
 
 # 调整 ZeroTier 到 服务 菜单
 # sed -i 's/vpn/services/g; s/VPN/Services/g' feeds/luci/applications/luci-app-zerotier/luasrc/controller/zerotier.lua
 # sed -i 's/vpn/services/g' feeds/luci/applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm
-
-# 设置 nlbwmon 独立菜单
-sed -i 's/services\/nlbw/nlbw/g; /path/s/admin\///g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
-sed -i 's/services\///g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
 
 # 添加防火墙规则
 # sed -i '/PREROUTING/s/^#//' package/lean/default-settings/files/zzz-default-settings
