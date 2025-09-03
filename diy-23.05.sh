@@ -240,6 +240,7 @@ color cy "添加&替换插件"
 # 主题
 git clone --depth=1 https://github.com/sirpdboy/luci-theme-kucat.git package/luci-theme-kucat
 git clone --depth=1 https://github.com/sirpdboy/luci-app-advancedplus.git package/luci-app-advancedplus
+git clone --depth=1 -b openwrt-24.10 https://github.com/sbwml/luci-theme-argon package/luci-app-argon
 
 # 常用工具与应用
 git clone --depth=1 https://github.com/sirpdboy/luci-app-poweroffdevice.git package/luci-app-poweroffdevice # 关机功能
