@@ -279,6 +279,12 @@ git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2.git package/p
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
+#mosdns
+# remove v2ray-geodata package from feeds (openwrt-22.03 & master)
+rm -rf feeds/packages/net/v2ray-geodata
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+
 # luci-app-adguardhome
 clone_dir openwrt-23.05 https://github.com/coolsnowwolf/luci luci-app-adguardhome
 
