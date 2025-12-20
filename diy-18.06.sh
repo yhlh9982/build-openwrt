@@ -267,6 +267,7 @@ git_clone https://github.com/lwb1978/openwrt-gecoosac  #集客 AC OpenWRT 插件
 git_clone https://github.com/destan19/OpenAppFilter  #应用过滤(OAF)
 #rm -rf feeds/luci/applications/luci-app-netdata  
 #git_clone https://github.com/sirpdboy/luci-app-netdata  #实时监控
+git_clone https://github.com/sirpdboy/luci-app-advancedplus  #进阶设置-高级设置
 git_clone https://github.com/sirpdboy/luci-app-partexp  #一键自动格式化分区、扩容、自动挂载插件
 git_clone https://github.com/sirpdboy/luci-app-wizard  #网络设置向导
 git_clone https://github.com/sirpdboy/luci-app-taskplan  #任务设置2.0版
@@ -287,7 +288,7 @@ clone_dir https://github.com/vernesong/OpenClash luci-app-openclash
 
 #theme
 git_clone js https://github.com/sirpdboy/luci-theme-kucat  #酷猫主题
-git_clone https://github.com/sirpdboy/luci-app-advancedplus  #酷猫主题设置 进阶设置-高级设置
+git_clone lua https://github.com/sirpdboy/luci-theme-kucat-config   #酷猫主题设置
 
 # 晶晨宝盒
 clone_all https://github.com/ophub/luci-app-amlogic
