@@ -239,8 +239,7 @@ color cy "添加&替换插件"
 
 # 主题
 git clone --depth=1 https://github.com/sirpdboy/luci-theme-kucat.git package/luci-theme-kucat
-git clone --depth=1 https://github.com/sirpdboy/luci-app-advancedplus.git package/luci-app-advancedplus
-git clone --depth=1 -b openwrt-24.10 https://github.com/sbwml/luci-theme-argon package/luci-app-argon
+git clone --depth=1 https://github.com/sirpdboy/luci-app-kucat-config.git package/luci-theme-kucat-config
 
 # 常用工具与应用
 git clone --depth=1 https://github.com/sirpdboy/luci-app-poweroffdevice.git package/luci-app-poweroffdevice # 关机功能
@@ -252,6 +251,7 @@ git clone --depth=1 https://github.com/EasyTier/luci-app-easytier.git package/lu
 git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/luci-app-oaf  # 应用过滤(OAF)
 git clone --depth=1 https://github.com/sirpdboy/luci-app-taskplan.git package/luci-app-taskplan   #任务设置2.0版
 git clone --depth=1 https://github.com/sirpdboy/luci-app-watchdog.git package/luci-app-watchdog  #看门狗
+git clone --depth=1 https://github.com/sirpdboy/luci-app-advancedplus.git package/luci-app-advancedplus
 git clone --depth=1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk.git package/luci-app-mentohust  #锐捷验证 luci-app-mentohust
 
 # 科学上网插件
