@@ -239,7 +239,7 @@ color cy "添加&替换插件"
 
 # 主题
 git clone --depth=1 https://github.com/sirpdboy/luci-theme-kucat.git package/luci-theme-kucat
-git clone --depth=1 https://github.com/sirpdboy/luci-app-kucat-config.git package/luci-theme-kucat-config
+git clone --depth=1 -b master https://github.com/sirpdboy/luci-app-kucat-config.git package/luci-theme-kucat-config
 
 # 常用工具与应用
 git clone --depth=1 https://github.com/sirpdboy/luci-app-poweroffdevice.git package/luci-app-poweroffdevice # 关机功能
