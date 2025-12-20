@@ -288,7 +288,7 @@ clone_dir https://github.com/vernesong/OpenClash luci-app-openclash
 
 #theme
 git_clone js https://github.com/sirpdboy/luci-theme-kucat  #酷猫主题
-git_clone lua https://github.com/sirpdboy/luci-theme-kucat-config   #酷猫主题设置
+git_clone lua https://github.com/sirpdboy/luci-app-kucat-config   #酷猫主题设置
 
 # 晶晨宝盒
 clone_all https://github.com/ophub/luci-app-amlogic
