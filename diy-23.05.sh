@@ -240,6 +240,8 @@ color cy "添加&替换插件"
 # 主题
 git clone --depth=1 https://github.com/sirpdboy/luci-theme-kucat.git package/luci-theme-kucat
 git clone --depth=1 -b master https://github.com/sirpdboy/luci-app-kucat-config.git package/luci-theme-kucat-config
+git clone --depth=1 https://github.com/eamonxg/luci-theme-aurora.git package/luci-theme-aurora
+git clone --depth=1 https://github.com/eamonxg/luci-app-aurora-config.git package/luci-theme-aurora-config
 
 # 常用工具与应用
 git clone --depth=1 https://github.com/sirpdboy/luci-app-poweroffdevice.git package/luci-app-poweroffdevice # 关机功能
@@ -253,6 +255,7 @@ git clone --depth=1 https://github.com/sirpdboy/luci-app-taskplan.git package/lu
 git clone --depth=1 https://github.com/sirpdboy/luci-app-watchdog.git package/luci-app-watchdog  #看门狗
 git clone --depth=1 https://github.com/sirpdboy/luci-app-advancedplus.git package/luci-app-advancedplus
 git clone --depth=1 https://github.com/KyleRicardo/MentoHUST-OpenWrt-ipk.git package/luci-app-mentohust  #锐捷验证 luci-app-mentohust
+git clone --depth=1 https://github.com/sbwml/luci-app-quickfile.git package/luci-app-quickfile  #文件管理
 
 # 科学上网插件
 # nikki
